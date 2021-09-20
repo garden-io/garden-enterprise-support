@@ -8,9 +8,8 @@ This Terraform creates several ressources that you need for your Garden Enterpri
 * An application registration with a principal and permissions to access Azure Key Vault.
 * An Azure Key Vault instance and Key for auto-unsealing Garden Enterprise (Hashicorp) Vault for secret storage.
 
-Installing a load balancer in front of an AKS cluster via Terraform is a bit tricky, since it is not possible to
-edit a clusters VM Scale Set via Terraform in order to add the nodes to a NAT pool. Therefore we suggest you install
-Nginx Ingress Controller (or any other Ingress Controller) with a Load Balancer service as shown below.
+Garden Enterprise also needs a load balancer and an ingress controller. The NGINX ingress controller is bundled with Garden Enterprise and allows
+installation with a load balancer service. But any other load balancer and ingress controller setup should work as well.
 
 ## Usage
 
@@ -43,22 +42,6 @@ And once in the postgres pod run the following command, replacing the password, 
 
 ```
 export PGPASSWORD='8@7xLo*iDq3AePrmAdYXipmv' && psql -h garden-enterprise-postgres.postgres.database.azure.com -p 5432 -d postgres -U postgres@garden-enterprise-postgres.postgres.database.azure.com -c 'CREATE EXTENSION "uuid-ossp";'
-```
-
-### Installing ingress
-
-As described above, the easiest way to get a load balancer in front of your AKS cluster is to deploy it through Kubernetes. You can of course use a different ingress controller, this is just a suggestion.
-
-In order to install nginx-ingress run:
-```
-helm install --set controller.replicaCount=3 ingress-nginx ingress-nginx/ingress-nginx
-```
-
-You should also create a tls secret with your certificate:
-```
-kubectl create secret tls garden-tls \
-  --cert=server.crt \
-  --key=server.key
 ```
 
 ## Troubleshooting
