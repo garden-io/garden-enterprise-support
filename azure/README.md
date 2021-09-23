@@ -10,7 +10,7 @@ This Terraform creates several ressources that you need for your Garden Enterpri
 
 Garden Enterprise also needs a load balancer and an ingress controller. The NGINX ingress controller is bundled with Garden Enterprise and allows
 installation with a load balancer service. But any other load balancer and ingress controller setup should work as well.
-Please also create a DNS for your Garden Enterprise instance and a matching TLS certificate.
+Please also create a DNS record for your Garden Enterprise instance and a matching TLS certificate.
 
 ## Usage
 
